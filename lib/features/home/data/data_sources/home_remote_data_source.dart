@@ -10,9 +10,12 @@ abstract class HomeRemoteDataSource {
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
+  final ApiService apiService;
+
+  HomeRemoteDataSourceImpl({required this.apiService});
   @override
   Future<List<BookEntity>> fetchBooks() async {
-    var data = await ApiService.get('volumes?q=food&Filtering=free-ebooks');
+    var data = await apiService.get('volumes?q=food&Filtering=free-ebooks');
     List<BookEntity> books = getBooksList(data);
     saveBooksData(books, kFeaturedBooks);
     return books;
@@ -20,8 +23,8 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
   @override
   Future<List<BookEntity>> fetchNewestBooks() async {
-    var data = await ApiService.get(
-        'volumes?q=programming&Filtering=free-ebooks&Sorting=newest');
+    var data = await apiService
+        .get('volumes?q=programming&Filtering=free-ebooks&Sorting=newest');
     List<BookEntity> books = getBooksList(data);
     saveBooksData(books, kNewestBooks);
     return books;

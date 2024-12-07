@@ -1,3 +1,4 @@
+import 'package:bookly_clean_arch/core/models/book_model/book_model.dart';
 import 'package:bookly_clean_arch/core/widgets/custom_error_message_widget.dart';
 import 'package:bookly_clean_arch/core/widgets/custom_loading_widget.dart';
 import 'package:bookly_clean_arch/features/home/presentation/manager/fetch_related_books_cubit/fetch_related_books_cubit.dart';
@@ -20,7 +21,7 @@ class RelatedBooksListView extends StatelessWidget {
             child: ListView.separated(
               padding: REdgeInsets.only(left: 30),
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) =>  RelatedBooksListViewItem(bookModel: state.books[index]),
+              itemBuilder: (context, index) =>  RelatedBooksListViewItem(bookModel: BookModel()),
               itemCount: state.books.length,
               separatorBuilder: (context, index) => const RSizedBox(width: 10),
             ),

@@ -6,12 +6,16 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
 class SearchRepoImpl implements SearchRepo {
+  final ApiService apiService;
+
+  SearchRepoImpl({required this.apiService});
+
   @override
   Future<Either<Failure, List<BookModel>>> getSearcheBooks(
       {required String bookName}) async {
     try {
       var data =
-          await ApiService.get('volumes?q=$bookName&Filtering=free-ebooks');
+          await apiService.get('volumes?q=$bookName&Filtering=free-ebooks');
       List<BookModel> books = [];
       if (data['totalItems'] != 0) {
         for (var item in data["items"]) {
