@@ -1,5 +1,6 @@
 import 'package:bookly_clean_arch/core/models/book_model/book_model.dart';
 import 'package:bookly_clean_arch/core/utils/api_service.dart';
+import 'package:bookly_clean_arch/core/utils/functions/save_books_data.dart';
 import 'package:bookly_clean_arch/features/home/domain/entities/book_entity.dart';
 
 abstract class HomeRemoteDataSource {
@@ -12,10 +13,8 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   @override
   Future<List<BookEntity>> fetchBooks() async {
     var data = await ApiService.get('volumes?q=food&Filtering=free-ebooks');
-    List<BookEntity> books = [];
-    for (var item in data["items"]) {
-      books.add(BookModel.fromJson(item));
-    }
+    List<BookEntity> books = getBooksList(data);
+    saveBooksData(books);
     return books;
   }
 
@@ -23,10 +22,8 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   Future<List<BookEntity>> fetchNewestBooks() async {
     var data = await ApiService.get(
         'volumes?q=programming&Filtering=free-ebooks&Sorting=newest');
-    List<BookEntity> books = [];
-    for (var item in data["items"]) {
-      books.add(BookModel.fromJson(item));
-    }
+    List<BookEntity> books = getBooksList(data);
+    saveBooksData(books);
     return books;
   }
 
@@ -34,5 +31,13 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   Future<List<BookEntity>> fetchRelatedBooks({required String category}) {
     // TODO: implement fetchRelatedBooks
     throw UnimplementedError();
+  }
+
+  List<BookEntity> getBooksList(Map<String, dynamic> data) {
+    List<BookEntity> books = [];
+    for (var item in data["items"]) {
+      books.add(BookModel.fromJson(item));
+    }
+    return books;
   }
 }
