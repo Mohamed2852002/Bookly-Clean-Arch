@@ -7,7 +7,6 @@ import 'package:bookly_clean_arch/features/home/domain/entities/book_entity.dart
 abstract class HomeRemoteDataSource {
   Future<List<BookEntity>> fetchNewestBooks();
   Future<List<BookEntity>> fetchBooks();
-  Future<List<BookEntity>> fetchRelatedBooks({required String category});
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
@@ -15,7 +14,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   Future<List<BookEntity>> fetchBooks() async {
     var data = await ApiService.get('volumes?q=food&Filtering=free-ebooks');
     List<BookEntity> books = getBooksList(data);
-    saveBooksData(books,kFeaturedBooks);
+    saveBooksData(books, kFeaturedBooks);
     return books;
   }
 
@@ -24,13 +23,8 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
     var data = await ApiService.get(
         'volumes?q=programming&Filtering=free-ebooks&Sorting=newest');
     List<BookEntity> books = getBooksList(data);
-    saveBooksData(books,kNewestBooks);
+    saveBooksData(books, kNewestBooks);
     return books;
-  }
-
-  @override
-  Future<List<BookEntity>> fetchRelatedBooks({required String category}) {
-    throw UnimplementedError();
   }
 
   List<BookEntity> getBooksList(Map<String, dynamic> data) {

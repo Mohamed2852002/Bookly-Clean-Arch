@@ -1,4 +1,4 @@
-import 'package:bookly_clean_arch/core/models/book_model/book_model.dart';
+import 'package:bookly_clean_arch/features/home/domain/entities/book_entity.dart';
 
 class FetchBooksState {}
 
@@ -7,7 +7,7 @@ final class FetchBooksInitial extends FetchBooksState {}
 final class FetchBooksLoading extends FetchBooksState {}
 
 final class FetchBooksSuccess extends FetchBooksState {
-  final List<BookModel> books;
+  final List<BookEntity> books;
 
   FetchBooksSuccess({required this.books});
 }
