@@ -1,13 +1,14 @@
-import 'package:bookly_clean_arch/features/home/domain/repos/home_repo.dart';
+import 'package:bookly_clean_arch/features/home/domain/use_cases/fetch_related_books_use_case.dart';
 import 'package:bookly_clean_arch/features/home/presentation/manager/fetch_related_books_cubit/fetch_related_books_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FetchRelatedBooksCubit extends Cubit<FetchRelatedBooksState> {
-  FetchRelatedBooksCubit(this.homeRepo) : super(FetchRelatedBooksInitial());
-  final HomeRepo homeRepo;
+  FetchRelatedBooksCubit(this.fetchRelatedBooksUseCase)
+      : super(FetchRelatedBooksInitial());
+  final FetchRelatedBooksUseCase fetchRelatedBooksUseCase;
   fetchRelevantBooks({required String category}) async {
     emit(FetchRelatedBooksLoading());
-    var data = await homeRepo.fetchRelatedBooks(category: category);
+    var data = await fetchRelatedBooksUseCase.call(category);
     data.fold(
       (failure) {
         emit(FetchRelatedBooksFailure(errorMessage: failure.errorMessage));
