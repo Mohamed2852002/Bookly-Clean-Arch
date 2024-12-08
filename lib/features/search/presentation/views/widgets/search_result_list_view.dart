@@ -21,7 +21,7 @@ class SearchResultBooksListView extends StatelessWidget {
               separatorBuilder: (context, index) => const RSizedBox(height: 16),
               itemCount: state.books.length,
               itemBuilder: (context, index) =>
-                  CustomBookListItem(bookModel: state.books[index]),
+                  CustomBookListItem(bookEntity: state.books[index]),
             ),
           );
         } else if (state is SearchResultBooksFailure) {

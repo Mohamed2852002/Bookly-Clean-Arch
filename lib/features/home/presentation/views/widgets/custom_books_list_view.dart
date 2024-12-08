@@ -1,4 +1,3 @@
-import 'package:bookly_clean_arch/core/models/book_model/book_model.dart';
 import 'package:bookly_clean_arch/core/utils/styles.dart';
 import 'package:bookly_clean_arch/core/widgets/custom_error_message_widget.dart';
 import 'package:bookly_clean_arch/core/widgets/custom_loading_widget.dart';
@@ -30,7 +29,7 @@ class CustomBooksListView extends StatelessWidget {
               padding: REdgeInsets.only(left: 30),
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) =>
-                  CustomListViewItem(bookModel: BookModel()),
+                  CustomListViewItem(bookEntity: state.books[index]),
               separatorBuilder: (context, index) => const RSizedBox(width: 12),
               itemCount: state.books.length,
             ),

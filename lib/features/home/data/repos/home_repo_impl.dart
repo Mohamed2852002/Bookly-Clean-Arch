@@ -7,10 +7,11 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
 class HomeRepoImpl implements HomeRepo {
- final HomeLocalDataSource homeLocalDataSource;
- final HomeRemoteDataSource homeRemoteDataSource;
+  final HomeLocalDataSource homeLocalDataSource;
+  final HomeRemoteDataSource homeRemoteDataSource;
 
-  HomeRepoImpl({required this.homeLocalDataSource, required this.homeRemoteDataSource});
+  HomeRepoImpl(
+      {required this.homeLocalDataSource, required this.homeRemoteDataSource});
   @override
   Future<Either<Failure, List<BookEntity>>> fetchNewestBooks() async {
     try {
@@ -40,25 +41,21 @@ class HomeRepoImpl implements HomeRepo {
       return left(ServerFailure.fromDioException(e));
     }
   }
-  
-  @override
-  Future<Either<Failure, List<BookEntity>>> fetchRelatedBooks({required String category}) {
-    throw UnimplementedError();
-  }
 
-  // @override
-  // Future<Either<Failure, List<BookEntity>>> fetchRelatedBooks(
-  //     {required String category}) async {
-  //   try {
-  //     var data = await apiService.get(
-  //         'volumes?Filtering=free-ebooks&Sorting=relevance&q=$category');
-  //     List<BookModel> books = [];
-  //     for (var item in data["items"]) {
-  //       books.add(BookModel.fromJson(item));
-  //     }
-  //     return right(books);
-  //   } on DioException catch (e) {
-  //     return left(ServerFailure.fromDioException(e));
-  //   }
-  // }
+  @override
+  Future<Either<Failure, List<BookEntity>>> fetchRelatedBooks(
+      {required String category}) async {
+    try {
+      List<BookEntity> books;
+      books = homeLocalDataSource.fetchRelatedBooks();
+      if (books.isNotEmpty) {
+        return right(books);
+      }
+      books =
+          await homeRemoteDataSource.fetchRelatedBooks(categoryName: category);
+      return right(books);
+    } on DioException catch (e) {
+      return left(ServerFailure.fromDioException(e));
+    }
+  }
 }

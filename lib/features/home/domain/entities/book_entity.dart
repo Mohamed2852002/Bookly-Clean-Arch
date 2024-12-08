@@ -22,6 +22,12 @@ class BookEntity extends HiveObject {
   @HiveField(5)
   final String? bookId;
 
+  @HiveField(6)
+  final String? category;
+
+  @HiveField(7)
+  final String? bookUrl;
+
   BookEntity({
     required this.image,
     required this.title,
@@ -29,5 +35,7 @@ class BookEntity extends HiveObject {
     required this.rating,
     required this.ratingCount,
     required this.bookId,
+    required this.category,
+    required this.bookUrl,
   });
 }

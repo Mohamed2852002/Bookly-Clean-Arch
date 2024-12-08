@@ -1,11 +1,11 @@
-import 'package:bookly_clean_arch/core/models/book_model/book_model.dart';
 import 'package:bookly_clean_arch/core/utils/styles.dart';
+import 'package:bookly_clean_arch/features/home/domain/entities/book_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BookRatingWidget extends StatelessWidget {
-  const BookRatingWidget({super.key, required this.bookModel});
-  final BookModel bookModel;
+  const BookRatingWidget({super.key, required this.bookEntity});
+  final BookEntity bookEntity;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -17,10 +17,10 @@ class BookRatingWidget extends StatelessWidget {
           size: 20.r,
         ),
         const RSizedBox(width: 3),
-        Text('${bookModel.volumeInfo?.averageRating ?? 0}',
+        Text('${bookEntity.rating ?? 0}',
             style: Styles.textStyle16),
         const RSizedBox(width: 12),
-        Text('(${bookModel.volumeInfo?.ratingsCount ?? 0})',
+        Text('(${bookEntity.ratingCount ?? 0})',
             style: Styles.textStyle14),
       ],
     );

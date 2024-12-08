@@ -1,6 +1,6 @@
-import 'package:bookly_clean_arch/core/models/book_model/book_model.dart';
 import 'package:bookly_clean_arch/core/utils/styles.dart';
 import 'package:bookly_clean_arch/core/widgets/custom_button.dart';
+import 'package:bookly_clean_arch/features/home/domain/entities/book_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -8,8 +8,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/utils/constants.dart';
 
 class PriceAndRateWidget extends StatelessWidget {
-  const PriceAndRateWidget({super.key, required this.bookModel});
-  final BookModel bookModel;
+  const PriceAndRateWidget({super.key, required this.bookEntity});
+  final BookEntity bookEntity;
   @override
   Widget build(BuildContext context) {
     return RSizedBox(
@@ -36,8 +36,7 @@ class PriceAndRateWidget extends StatelessWidget {
               text: 'Preview',
               style: Styles.textStyle16,
               onPressed: () async {
-                final Uri url = Uri.parse(
-                    bookModel.volumeInfo?.previewLink ?? kNotFoundImage);
+                final Uri url = Uri.parse(bookEntity.bookUrl ?? kNotFoundImage);
                 await launchUrl(url, mode: LaunchMode.externalApplication);
               },
               backgroundColor: const Color(0xffEF8262),
