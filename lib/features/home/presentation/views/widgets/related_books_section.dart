@@ -1,5 +1,5 @@
 import 'package:bookly_clean_arch/core/utils/styles.dart';
-import 'package:bookly_clean_arch/features/home/presentation/views/widgets/related_books_list_view.dart';
+import 'package:bookly_clean_arch/features/home/presentation/views/widgets/related_books_list_view_bloc_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,7 +21,7 @@ class RelatedBooksSection extends StatelessWidget {
           ),
         ),
         const RSizedBox(height: 16),
-        const RelatedBooksListView(),
+        const RelatedBooksListViewBlocBuilder(),
       ],
     );
   }
