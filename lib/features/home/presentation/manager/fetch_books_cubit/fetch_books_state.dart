@@ -6,6 +6,14 @@ final class FetchBooksInitial extends FetchBooksState {}
 
 final class FetchBooksLoading extends FetchBooksState {}
 
+final class FetchBooksPaginationLoading extends FetchBooksState {}
+
+final class FetchBooksPaginationFailure extends FetchBooksState {
+  final String errorMessage;
+
+  FetchBooksPaginationFailure({required this.errorMessage});
+}
+
 final class FetchBooksSuccess extends FetchBooksState {
   final List<BookEntity> books;
 

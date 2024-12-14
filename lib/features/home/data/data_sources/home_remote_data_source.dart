@@ -6,7 +6,7 @@ import 'package:bookly_clean_arch/features/home/domain/entities/book_entity.dart
 
 abstract class HomeRemoteDataSource {
   Future<List<BookEntity>> fetchNewestBooks();
-  Future<List<BookEntity>> fetchBooks();
+  Future<List<BookEntity>> fetchBooks({int pageNumber = 0});
   Future<List<BookEntity>> fetchRelatedBooks({required String categoryName});
 }
 
@@ -15,8 +15,9 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
   HomeRemoteDataSourceImpl({required this.apiService});
   @override
-  Future<List<BookEntity>> fetchBooks() async {
-    var data = await apiService.get('volumes?q=food&Filtering=free-ebooks');
+  Future<List<BookEntity>> fetchBooks({int pageNumber = 0}) async {
+    var data = await apiService.get(
+        'volumes?q=food&Filtering=free-ebooks&startIndex=${pageNumber * 10}');
     List<BookEntity> books = getBooksList(data);
     saveBooksData(books, kFeaturedBooks);
     return books;

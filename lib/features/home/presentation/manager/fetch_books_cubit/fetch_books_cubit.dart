@@ -5,12 +5,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class FetchBooksCubit extends Cubit<FetchBooksState> {
   FetchBooksCubit(this.fetchBooksUseCase) : super(FetchBooksInitial());
   final FetchBooksUseCase fetchBooksUseCase;
-  fetchBooks() async {
-    emit(FetchBooksLoading());
-    var data = await fetchBooksUseCase.call();
+  fetchBooks({int pageNumber = 0}) async {
+    if (pageNumber == 0) {
+      emit(FetchBooksLoading());
+    } else {
+      emit(FetchBooksPaginationLoading());
+    }
+    var data = await fetchBooksUseCase.call(pageNumber);
     data.fold(
       (failure) {
-        emit(FetchBooksFailure(errorMessage: failure.errorMessage));
+        if (pageNumber == 0) {
+          emit(FetchBooksFailure(errorMessage: failure.errorMessage));
+        } else {
+          emit(FetchBooksPaginationFailure(errorMessage: failure.errorMessage));
+        }
       },
       (booksList) {
         emit(FetchBooksSuccess(books: booksList));

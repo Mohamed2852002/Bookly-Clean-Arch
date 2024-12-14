@@ -1,5 +1,5 @@
 import 'package:bookly_clean_arch/features/home/presentation/views/widgets/custom_app_bar.dart';
-import 'package:bookly_clean_arch/features/home/presentation/views/widgets/custom_bookks_list_view_bloc_builder.dart';
+import 'package:bookly_clean_arch/features/home/presentation/views/widgets/custom_bookks_list_view_bloc_consumer.dart';
 import 'package:bookly_clean_arch/features/home/presentation/views/widgets/custom_text.dart';
 import 'package:bookly_clean_arch/features/home/presentation/views/widgets/newest_books_list_view_bloc_builder.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class HomeViewBody extends StatelessWidget {
             children: [
               CustomAppBar(),
               RSizedBox(height: 35),
-              CustomBookksListViewBlocBuilder(),
+              CustomBookksListViewBlocConsumer(),
               RSizedBox(height: 50),
               CustomText(),
               RSizedBox(height: 20),

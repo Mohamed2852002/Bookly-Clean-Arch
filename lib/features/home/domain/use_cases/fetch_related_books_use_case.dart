@@ -10,7 +10,7 @@ class FetchRelatedBooksUseCase implements UseCase<List<BookEntity>,String> {
   FetchRelatedBooksUseCase({required this.homeRepo});
 
   @override
-  Future<Either<Failure, List<BookEntity>>> call(String categoryName) {
+  Future<Either<Failure, List<BookEntity>>> call([String categoryName = '']) {
     // Put your permission check here
     return homeRepo.fetchRelatedBooks(category: categoryName);
   }
